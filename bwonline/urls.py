@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 # from django.contrib import admin
+from django.conf.global_settings import STATIC_ROOT
 from django.urls import path,include,re_path
 import xadmin
 from django.views.generic import TemplateView
@@ -26,13 +27,14 @@ from apps.users.views import LoginView, \
        AvrivaUserView, \
        ForgetPwdView, \
        ResetView, \
-       ModifyPwdView
+       ModifyPwdView, \
+       LogoutView
 
-from apps.organization.views import OrgView
+from apps.organization.views import OrgView, IndexView
 
 urlpatterns = [
        path('adminx/', xadmin.site.urls),
-       path('', TemplateView.as_view(template_name='html/index.html'), name='index'),
+       path('', IndexView.as_view(), name='index'),
        path('login/', LoginView.as_view(), name='login'),
        path('register/', RegisterView.as_view(), name='register'),
        path('captcha/',include('captcha.urls')),
@@ -45,7 +47,13 @@ urlpatterns = [
        # 处理图片显示的url,使用Django自带serve,传入参数告诉它去哪个路径找，我们有配置好的路径MEDIAROOT
        re_path(r'^media/(?P<path>.*)',serve,{'document_root':settings.MEDIA_ROOT}),
        path("course/", include('apps.course.urls', namespace="course")),
+       path("users/", include('apps.users.urls',namespace='users')),
+       path('logout/', LogoutView.as_view(), name="logout"),
+       re_path(r'^static/(?P<path>.*)', serve, {"document_root": STATIC_ROOT}),
 ]
-
+# 全局404页面配置
+handler404 = 'users.views.pag_not_found'
+# 全局500页面配置
+handler500 = 'users.views.page_error'
 
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

@@ -27,19 +27,19 @@
                 {% if request.user.is_authenticated %}
 				<div class="personal">
                             <dl class="user fr">
-                                <dd>bobby<img class="down fr" src="/static/online/images/top_down.png"/></dd>
-                                <dt><img width="20" height="20" src="/static/online/media/image/2016/12/default_big_14.png"/></dt>
+                                <dd>{{ user.username }}<img class="down fr" src="/static/online/images/top_down.png"/></dd>
+                                <dt><img width="20" height="20" src="{{ MEDIA_URL }}{{ request.user.image }}"/></dt>
                             </dl>
                             <div class="userdetail">
                             	<dl>
-	                                <dt><img width="80" height="80" src="/static/online/media/image/2016/12/default_big_14.png"/></dt>
+	                                <dt><img width="80" height="80" src="{{ MEDIA_URL }}{{ request.user.image }}"/></dt>
 	                                <dd>
-	                                    <h2>django</h2>
-	                                    <p>bobby</p>
+	                                    <h2>{{ request.user.nick_name }}</h2>
+	                                    <p>{{ request.user.username }}</p>
 	                                </dd>
                                 </dl>
                                 <div class="btn">
-	                                <a class="personcenter fl" href="usercenter-info.html">进入个人中心</a>
+	                                <a class="personcenter fl" href="{% url 'users:user_info' %}">进入个人中心</a>
 	                                <a class="fr" href="/logout/">退出</a>
                                 </div>
                             </div>
@@ -116,8 +116,7 @@
         <div class="wp">
             <ul class="cont">
                 <li class="logo"><a href=""><img src="{% static 'online/images/footlogo.png' %}"/></a></li>
-                <li class="code"><img src="{% static 'online/images/code.jpg' %}"/>
-                    <p class="center">扫描关注微信</p></li>
+
                 <li class="third"><img class="fl" src="{% static 'online/images/tell.png' %}"/>
                     <p class="tell">631674589</p>
                     <p class="time">周一至周日 9:00-18:00</p></li>

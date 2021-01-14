@@ -44,7 +44,7 @@ class UserFavorite(models.Model):
 
     user = models.ForeignKey(UserProfile, verbose_name='用户', on_delete=models.CASCADE)
     fav_id = models.IntegerField('数据id', default=0)
-    fav_type = models.IntegerField(verbose_name='收藏类型', choices=FAV_TYPE,default=1)
+    fav_type = models.IntegerField(verbose_name='收藏类型', choices=FAV_TYPE, default=1)
     add_time = models.DateTimeField('添加时间', default=datetime.now)
 
     class Meta:

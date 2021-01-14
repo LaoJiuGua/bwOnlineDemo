@@ -15,9 +15,6 @@
 {% endblock %}
 
 
-
-
-
 {% block content %}
     <section>
 	<div class="wp butler-detail-box butler-diaryd-box clearfix">
@@ -91,14 +88,14 @@
                         <!--<li class="active"><a href="?page=1">1</a></li>-->
                     <!--</ul>-->
                 <!--</div>-->
-            </div>
+                </div>
             </div>
         </div>
         <div class="fr list">
              <div class="butler_detail_list">
                 <div class="right butler-company-box">
                 <div class="head">
-                    <h1>慕课网</h1>
+                    <h1>{{ teacher.org.name }}</h1>
                     <p>知名高校，权威教学</p>
                 </div>
                 <div class="pic">
@@ -120,13 +117,13 @@
                         {% for hot_teacher in sorted_teacher %}
                         <dl class="des">
                             <span class="num fl">1</span>
-                            <a href="/org/teacher/detail/1/">
+                            <a href="{% url 'org:teacher_detail' hot_teacher.id %}">
                                 <dt>
-                                    <img width="50" height="50" class="scrollLoading" src="../../static/online/media/teacher/2016/11/aobama_CXWwMef.png"/>
+                                    <img width="50" height="50" class="scrollLoading" src="{% static 'online/media/teacher/2016/11/aobama_CXWwMef.png' %}"/>
                                 </dt>
                             </a>
                             <dd>
-                                <a href="/org/teacher/detail/1/">
+                                <a href="{% url 'org:teacher_detail' hot_teacher.id %}">
                                     <h1 title="bobby">{{ hot_teacher.name }}</h1>
                                 </a>
                                 <p>工作年限：<span>{{ hot_teacher.work_years }}年</span></p>
@@ -144,9 +141,8 @@
 {% endblock %}
 
 
-
 {% block custom_js %}
-<script type="text/javascript">
+    <script type="text/javascript">
 //收藏分享
 function add_fav(current_elem, fav_id, fav_type){
     $.ajax({

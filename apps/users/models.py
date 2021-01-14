@@ -12,6 +12,7 @@ def make_upload_path(instance,filename):
     date_str = "%s%s%s"%(datetime.now().year,datetime.now().month,datetime.now().day)
     return '{}/{}/{}'.format(class_name +"s",date_str,filename)
 
+
 class UserProfile(AbstractUser):
     gender_choices = (
         ('male', '男'),
@@ -22,7 +23,7 @@ class UserProfile(AbstractUser):
     gender = models.CharField('性别', max_length=10, choices=gender_choices, default='female')
     adress = models.CharField('地址', max_length=100, default='')
     mobile = models.CharField('手机号', max_length=11, null=True, blank=True)
-    image = models.ImageField('头像', upload_to='image/%Y%m', default='image/default.png', max_length=100)
+    image = models.ImageField('头像', upload_to=make_upload_path, default='image/default.png', max_length=100)
 
     class Meta:
         verbose_name = '用户信息'
@@ -35,7 +36,8 @@ class UserProfile(AbstractUser):
 class EmailVerifyRecord(models.Model):
     send_choices = (
         ('register', '注册'),
-        ('forget', '找回密码')
+        ('forget', '找回密码'),
+        ('update_email', '修改邮箱')
     )
     code = models.CharField('验证码',max_length=20)
     email = models.EmailField("邮箱",max_length=50)
